@@ -1,0 +1,40 @@
+
+
+
+###
+GET http://localhost:6060/api/users
+
+###
+GET http://localhost:6060/api/users/2
+
+
+
+###
+POST http://localhost:6060/api/users
+Content-Type: application/json
+
+    {
+        "userID": 2,
+        "details": {
+            "firstName": "Amraaaa",
+            "lastName": "Munkh",
+            "email": "ami@gmail.com",
+            "address": "Iveel hothon",
+            "phoneNumber": "70118818",
+            "gen": "male"
+        },
+        "signIn": {
+            "userName": "Amaraa",
+            "password": "huurhun huuhduud"
+        },
+        "admin": true,
+        "order": [],
+        "favItem": []
+    }
+###
+
+DELETE http://localhost:6060/api/users/2
+
+###
+PUT http://localhost:6060/api/user?id=2
+
