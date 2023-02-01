@@ -39,15 +39,11 @@ exports.get = (req, res) => {
         const filteredDta = myData.filter((dt) => {
             return dt.userID == id
         })
+
         console.log(filteredDta)
 
-        fs.writeFile(file, JSON.stringify(filteredDta), (err) => {
-            if (err) {
-                return res.json({ status: false, message: err });
-            }
+        return res.json({ status: true, result: filteredDta });
 
-            return res.json({ status: true, result: filteredDta });
-        })
     })
 };
 

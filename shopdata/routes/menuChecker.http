@@ -1,0 +1,16 @@
+
+
+###
+GET http://localhost:6060/api/menus
+
+###
+GET http://localhost:6060/api/menu/2
+
+###
+POST http://localhost:6060/api/menus
+
+###
+PUT http://localhost:6060/api/menu/2
+
+###
+DELETE http://localhost:6060/api/menus/2

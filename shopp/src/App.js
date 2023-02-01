@@ -5,11 +5,10 @@ import Header from './component/Header';
 function App() {
   return (
     <>
-      <div className='container-fluid p-0'>
+      <div className='container-fluid p-0 '>
         <Header />
       </div>
     </>
   );
 }
-
 export default App;
