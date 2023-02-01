@@ -1,8 +1,6 @@
 
 
 const fs = require('fs');
-const { stringify } = require('querystring');
-const { BodyText, Rss } = require('react-bootstrap-icons');
 const uuid = require('uuid');
 
 const file = process.cwd() + "/data/category.json"

@@ -4,13 +4,13 @@
 GET http://localhost:6060/api/categories
 
 ###
-GET http://localhost:6060/api/category/2
+GET http://localhost:6060/api/categories/2
 
 ###
 POST http://localhost:6060/api/categories
 
 ###
-PUT http://localhost:6060/api/categoriy/2
+PUT http://localhost:6060/api/category/2
 
 ###
 DELETE http://localhost:6060/api/categories/2

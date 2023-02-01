@@ -1,0 +1,18 @@
+
+
+
+###
+GET http://localhost:6060/api/products
+
+###
+GET http://localhost:6060/api/products/1
+
+###
+POST http://localhost:6060/api/products
+
+###
+PUT http://localhost:6060/api/product/1
+
+###
+DELETE http://localhost:6060/api/products/1
+

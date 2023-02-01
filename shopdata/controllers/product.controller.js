@@ -3,8 +3,6 @@
 
 
 const fs = require('fs');
-const { stringify } = require('querystring');
-const { BodyText, Rss } = require('react-bootstrap-icons');
 const uuid = require('uuid');
 
 const file = process.cwd() + "/data/product.json"
@@ -40,7 +38,7 @@ exports.get = (req, res) => {
         const myData = JSON.parse(data);
 
         const myFilteredData = myData.map((el) => {
-            if (el.cateId == id) {
+            if (el.productId == id) {
                 return el
             }
         });
@@ -62,10 +60,16 @@ exports.uptade = (req, res) => {
         const myData = JSON.parse(data);
 
         myData.map((el) => {
-            if (el.cateId = id) {
-                el.cateId = body.cateId
-                el.cateName = body.cateName
-                el.cateLink = body.cateLink
+            if (el.productId = id) {
+                el.productId = body.cateId
+                el.productName = body.cateName
+                el.category =body.category
+                el.price = body.price
+                el.desc = body.desc
+                el.sale = body.sale
+                el.isTrending = body.price
+                el.imgs.coverImg = body.imgs.coverImg
+                el.imgs.thumbnail = body.imgs.thumbnail
             }
         });
 
@@ -90,9 +94,17 @@ exports.create = (req, res) => {
         const myData = JSON.parse(data);
 
         const myObj = {
-            cateName: body.cateName,
-            cateLink: body.cateLink,
-            cateId: uuid.v4()
+            productId: body.cateId,
+            productName: body.cateName,
+            category: body.category,
+            price: body.price,
+            desc: body.desc,
+            sale: body.sale,
+            isTrending: body.price,
+            imgs:{
+                coverImg: body.imgs.coverImg,
+                thumbnail: body.imgs.thumbnail
+            }
         };
 
         myData.push(myObj);
@@ -117,7 +129,7 @@ exports.delete = (req, res) => {
 
         const myData = JSON.parse(data);
 
-        const myFilteredData = myData.filter((el) => el.cateId !== id)
+        const myFilteredData = myData.filter((el) => elproductId !== id)
 
         fs.writeFile(file, JSON.stringify(myFilteredData), (err) => {
             if (err) {

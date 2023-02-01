@@ -104,7 +104,7 @@ exports.create = (req, res) => {
     });
 };
 
-exports.dalete = (req, res) => {
+exports.delete = (req, res) => {
     const { id } = req.params;
 
     fs.readFile(myfile, 'utf-8', (readErr, data) => {
