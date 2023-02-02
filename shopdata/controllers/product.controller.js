@@ -63,11 +63,12 @@ exports.uptade = (req, res) => {
             if (el.productId = id) {
                 el.productId = body.cateId
                 el.productName = body.cateName
-                el.category =body.category
+                el.category = body.category
                 el.price = body.price
                 el.desc = body.desc
                 el.sale = body.sale
                 el.isTrending = body.price
+                el.quantify = body.quantify
                 el.imgs.coverImg = body.imgs.coverImg
                 el.imgs.thumbnail = body.imgs.thumbnail
             }
@@ -94,14 +95,15 @@ exports.create = (req, res) => {
         const myData = JSON.parse(data);
 
         const myObj = {
-            productId: body.cateId,
-            productName: body.cateName,
+            productId: uuid.v4(),
+            productName: body.productName,
             category: body.category,
             price: body.price,
             desc: body.desc,
             sale: body.sale,
             isTrending: body.price,
-            imgs:{
+            quantity: body.quantity,
+            imgs: {
                 coverImg: body.imgs.coverImg,
                 thumbnail: body.imgs.thumbnail
             }
@@ -129,7 +131,7 @@ exports.delete = (req, res) => {
 
         const myData = JSON.parse(data);
 
-        const myFilteredData = myData.filter((el) => elproductId !== id)
+        const myFilteredData = myData.filter((el) => el.productId !== id)
 
         fs.writeFile(file, JSON.stringify(myFilteredData), (err) => {
             if (err) {
