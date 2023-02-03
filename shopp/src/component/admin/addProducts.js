@@ -35,12 +35,14 @@ export default function AddProducts() {
                 getData()
             })
     }
+    const [isEdited, setIsedtid] = useState(false)
 
     function EditFile(id) {
         myData.map((e) => {
             if (e.productId === id) {
-                navigate(`/createProduct/${id}`)
+                navigate(`/createProduct/${id}`, { isEdited })
             }
+            return myData
         })
     }
 

@@ -7,6 +7,8 @@ import Admin from './component/admin/Admin';
 import AddUsers from './component/admin/addUsers';
 import AddProducts from './component/admin/addProducts';
 import CreateProduct from './component/admin/createProduct';
+import CreateCategory from './component/admin/CreateCategory';
+import AddMenu from './component/admin/addMenu';
 
 function App() {
   return (
@@ -23,8 +25,10 @@ function App() {
           <Route element={<Admin />}>
             <Route index path="/adminUsers" element={<AddUsers />} />
             <Route path="/adminProducts" element={<AddProducts />} />
+            <Route path='/adminCategory' element={<CreateCategory />} />
+            <Route path='/adminMenu' element={<AddMenu />} />
             <Route path='/createProduct/*' element={<CreateProduct />} />
-            <Route path='/createUser' />
+            <Route path='/createCategory' element={<CreateCategory />} />
           </Route>
         </Routes>
 
