@@ -1,17 +1,13 @@
-import { useState } from "react"
-import { useLocation } from "react-router-dom";
-import axios from 'axios'
+import { useEffect, useState } from "react";
+import axios from 'axios';
+import { useParams } from "react-router-dom";
 
 
 
-export default function CreateProduct({ isEdited }) {
+export default function CreateProduct() {
 
-    console.log(isEdited)
-
-    // const location = useLocation()
-    // const myPath = location.pathname.split('/')
-
-    // console.log(myPath[myPath.length - 1])
+    const {id} = useParams();
+    console.log(id)
 
     const init = {
         productName: '',
@@ -27,28 +23,65 @@ export default function CreateProduct({ isEdited }) {
         }
     }
 
-    console.log()
-    const [myVal, setMyVal] = useState(init);
-    console.log(myVal)
+    const [myVal, setMyVal] = useState({});
+    console.log(myVal);
 
-    function AddProducts() {
-        fetch(`http://localhost:6060/api/products`, {
-            method: "POST",
-            headers: {
-                "Content-type": 'application/json'
-            },
-            body: JSON.stringify(myVal)
+    const [isEdited , setIsEdited] = useState(false);
+
+    function getData(){
+        fetch(`http://localhost:6060/api/products/${id}`)
+        .then((res)=>res.json())
+        .then((data)=>{
+            console.log(data);
+            setMyVal(data.result[0]);
+            setIsEdited(true)
         })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                setMyVal(init);
-                window.alert("success");
+        .catch((err)=>console.log(err));
+    }
+
+    useEffect(()=>{
+        if(id){
+            getData();
+        }else{
+            setMyVal(init);
+            setIsEdited(false);
+        }
+    },[])
+    function AddProducts() {
+        if(isEdited){
+            console.log(id)
+            fetch(`http://localhost:6060/api/products/${id}`,{
+                method: 'PUT',
+                headers: {'Content-type': 'application/json'},
+                body: JSON.stringify(myVal)
             })
+            .then((res)=>res.json())
+            .then((data)=>{
+                console.log(data);
+                setIsEdited(true)
+                setMyVal(init)
+                window.alert("Amjilttai");
+            })
+            .catch((err)=>console.log(err))
+        }else{
+            fetch(`http://localhost:6060/api/products`, {
+                method: "POST",
+                headers: {
+                    "Content-type": 'application/json'
+                },
+                body: JSON.stringify(myVal)
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    setMyVal(init);
+                    window.alert("success");
+                })
+        }
     }
     return (
         <>
-            <div className="container-fluid">
+            <div className="container-fluid" style={{background: '#2a2a34'}}>
                 <div className="Header fs-4">Create Product</div>
                 <div className="row">
                     <form className="d-flex flex-column col-7 gap-2">
@@ -62,7 +95,7 @@ export default function CreateProduct({ isEdited }) {
                             <input placeholder="sale" type="number" className="form-control" id="productSale" value={myVal.sale} onChange={(e) => setMyVal({ ...myVal, sale: e.target.value })} />
                         </label>
                         <label for='productSale'>
-                            <select onChange={(e) => { setMyVal({ ...myVal, category: e.target.value }) }}>
+                            <select value={myVal.category} onChange={(e) => { setMyVal({ ...myVal, category: e.target.value }) }}>
                                 <option value='0'>Choose...</option>
                                 <option value='phone'>Phone</option>
                                 <option value='clothes'>Clothes</option>
@@ -82,7 +115,7 @@ export default function CreateProduct({ isEdited }) {
                         <label for='quantity'>
                             <input placeholder="Quantity" type='number' className="form-control" id="quantity" value={myVal.quantity} onChange={(e) => setMyVal({ ...myVal, quantity: e.target.value })} />
                         </label>
-                        <label for='productImgCover'>
+                        {/* <label for='productImgCover'>
                             <input placeholder="productCoverImg" type="file" className="form-control" id="productImgCover" value={myVal.imgs.coverImg} onChange={(e) => {
                                 const url = "https://api.cloudinary.com/v1_1/djiihhlsc/upload ";
 
@@ -133,7 +166,7 @@ export default function CreateProduct({ isEdited }) {
                                     })
                                     .catch((err) => console.log(err))
                             }} />
-                        </label>
+                        </label> */}
                         <div className="save-section">
                             <div className="btn border text-light" style={{ backgroundColor: '#1C4F2A' }} onClick={AddProducts}>Add product</div>
                         </div>

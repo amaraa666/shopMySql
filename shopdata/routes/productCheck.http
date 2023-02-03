@@ -5,13 +5,29 @@
 GET http://localhost:6060/api/products
 
 ###
-GET http://localhost:6060/api/products/1
+GET http://localhost:6060/api/products/7d3be315-bbba-454b-bd5a-012539b95e8b
 
 ###
 POST http://localhost:6060/api/products
 
 ###
-PUT http://localhost:6060/api/product/1
+PUT http://localhost:6060/api/products/9c73e0a6-cdc0-43d9-805a-411d364afc31
+Content-Type: application/json
+
+{
+     "productName": "TEst12",
+      "category": "phone",
+      "price": 203,
+      "desc": "bla",
+      "sale": "1234567",
+      "isTrending": 203,
+      "quintify": "",
+      "imgs": {
+        "coverImg": "",
+        "thumbnail": ""
+      }
+}
+
 
 ###
 DELETE http://localhost:6060/api/products/1

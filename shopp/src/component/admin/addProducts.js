@@ -35,12 +35,11 @@ export default function AddProducts() {
                 getData()
             })
     }
-    const [isEdited, setIsedtid] = useState(false)
 
     function EditFile(id) {
         myData.map((e) => {
             if (e.productId === id) {
-                navigate(`/createProduct/${id}`, { isEdited })
+                navigate(`/createProduct/${id}`)
             }
             return myData
         })
@@ -48,11 +47,11 @@ export default function AddProducts() {
 
     return (
         <>
-            <div className="container-fluid d-flex flex-column gap-2">
+            <div className="container-fluid d-flex flex-column gap-2 rounded-3 text-light" style={{background: '#2a2a34'}}>
                 <div className="addProducts-section py-3">
-                    <div className="btn border text-light" style={{ backgroundColor: '#3A1678' }}><Link to="/createProduct">Add products</Link></div>
+                    <div className="btn border text-light" style={{ backgroundColor: '#8B86E2' }}><Link to="/createProduct">Add products</Link></div>
                 </div>
-                <table className="table fs-4">
+                <table className="table fs-4 text-light">
                     <thead>
                         <tr>
                             <th scope="col">#</th>

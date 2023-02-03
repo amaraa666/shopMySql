@@ -37,50 +37,52 @@ exports.get = (req, res) => {
 
         const myData = JSON.parse(data);
 
-        const myFilteredData = myData.map((el) => {
+        const myFilteredData = myData.filter((el) => {
             if (el.productId == id) {
                 return el
             }
         });
+        console.log(myFilteredData)
 
         return res.json({ status: true, result: myFilteredData });
 
     });
 };
 
-exports.uptade = (req, res) => {
-    const { id } = req.params;
+exports.uptade = (req , res) =>{
+    const {id} = req.params;
     const body = req.body;
 
-    fs.readFile(file, 'utf-8', (readErr, data) => {
-        if (readErr) {
-            return res.json({ status: false, message: readErr });
-        };
+    fs.readFile(file , 'utf-8' , (readErr , data)=>{
 
-        const myData = JSON.parse(data);
+        if(readErr){
+            return res.json({status: false , message: readErr});
+        }
 
-        myData.map((el) => {
-            if (el.productId = id) {
-                el.productId = body.cateId
-                el.productName = body.cateName
+        const Mydata = JSON.parse(data);
+
+        Mydata.map((el)=>{
+            if(el.productId == id){
+                el.productName = body.productName
                 el.category = body.category
                 el.price = body.price
                 el.desc = body.desc
                 el.sale = body.sale
-                el.isTrending = body.price
-                el.quantify = body.quantify
-                el.imgs.coverImg = body.imgs.coverImg
-                el.imgs.thumbnail = body.imgs.thumbnail
-            }
-        });
-
-        fs.writeFile(file, JSON.stringify(myData), (err) => {
-            if (err) {
-                return res.json({ status: false, message: err });
+                el.isTrending = body.isTrending
+                el.quantity = body.quantity
+                // el.imgs.coverImg = body.imgs.coverImg
+                // el.imgs.thumbnail = body.imgs.thumbnail                
             };
-
-            return ({ stautus: true, result: myData });
         });
+
+        fs.writeFile(file , JSON.stringify(Mydata) , (err)=>{
+
+            if(err){
+                return res.json({status: false , message: err});
+            }
+
+            return res.json({status: true , result: Mydata})
+        })
     });
 };
 

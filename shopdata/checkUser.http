@@ -1,0 +1,23 @@
+
+
+
+###
+GET http://localhost:6060/users
+
+
+###
+POST http://localhost:6060/user
+
+Content-Type: application/json
+
+{
+    
+}
+
+###
+
+DELETE http://localhost:6060/user?id=1
+
+###
+PUT http://localhost:6060/user?id=2
+
