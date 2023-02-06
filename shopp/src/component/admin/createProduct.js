@@ -115,8 +115,8 @@ export default function CreateProduct() {
                         <label for='quantity'>
                             <input placeholder="Quantity" type='number' className="form-control" id="quantity" value={myVal.quantity} onChange={(e) => setMyVal({ ...myVal, quantity: e.target.value })} />
                         </label>
-                        {/* <label for='productImgCover'>
-                            <input placeholder="productCoverImg" type="file" className="form-control" id="productImgCover" value={myVal.imgs.coverImg} onChange={(e) => {
+                        <label for='productImgCover'>
+                            <input placeholder="productCoverImg" type="file" multiple className="form-control" id="productImgCover" onChange={(e) => {
                                 const url = "https://api.cloudinary.com/v1_1/djiihhlsc/upload ";
 
                                 const formData = new FormData()
@@ -130,20 +130,17 @@ export default function CreateProduct() {
                                 axios
                                     .post(url, formData)
                                     .then((res) => {
-
                                         console.log(res);
-
                                         const myArr = { ...myVal }
                                         myArr.imgs.coverImg = res.data.secure_url
                                         setMyVal(myArr);
                                     })
                                     .catch((err) => console.log(err))
-
-
                             }} />
+                            {isEdited ? <img src={myVal.imgs.coverImg} className="w-100" /> : ''}
                         </label>
                         <label for='productimgThumb'>
-                            <input placeholder="productThumbnailImg" type="file" className="form-control" id="productimgThumb" value={myVal.imgs.thumbnail} onChange={(e) => {
+                            <input placeholder="productThumbnailImg" type="file" multiple className="form-control" id="productimgThumb" onChange={(e) => {
                                 const url = "https://api.cloudinary.com/v1_1/djiihhlsc/upload ";
 
                                 const formData = new FormData()
@@ -166,7 +163,8 @@ export default function CreateProduct() {
                                     })
                                     .catch((err) => console.log(err))
                             }} />
-                        </label> */}
+                            {isEdited ? <img src={myVal.imgs.thumbnail} className="w-100" /> : ''}
+                        </label>
                         <div className="save-section">
                             <div className="btn border text-light" style={{ backgroundColor: '#1C4F2A' }} onClick={AddProducts}>Add product</div>
                         </div>

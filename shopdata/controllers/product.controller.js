@@ -49,20 +49,20 @@ exports.get = (req, res) => {
     });
 };
 
-exports.uptade = (req , res) =>{
-    const {id} = req.params;
+exports.uptade = (req, res) => {
+    const { id } = req.params;
     const body = req.body;
 
-    fs.readFile(file , 'utf-8' , (readErr , data)=>{
+    fs.readFile(file, 'utf-8', (readErr, data) => {
 
-        if(readErr){
-            return res.json({status: false , message: readErr});
+        if (readErr) {
+            return res.json({ status: false, message: readErr });
         }
 
         const Mydata = JSON.parse(data);
 
-        Mydata.map((el)=>{
-            if(el.productId == id){
+        Mydata.map((el) => {
+            if (el.productId == id) {
                 el.productName = body.productName
                 el.category = body.category
                 el.price = body.price
@@ -70,18 +70,18 @@ exports.uptade = (req , res) =>{
                 el.sale = body.sale
                 el.isTrending = body.isTrending
                 el.quantity = body.quantity
-                // el.imgs.coverImg = body.imgs.coverImg
-                // el.imgs.thumbnail = body.imgs.thumbnail                
+                el.imgs.coverImg = body.imgs.coverImg
+                el.imgs.thumbnail = body.imgs.thumbnail
             };
         });
 
-        fs.writeFile(file , JSON.stringify(Mydata) , (err)=>{
+        fs.writeFile(file, JSON.stringify(Mydata), (err) => {
 
-            if(err){
-                return res.json({status: false , message: err});
+            if (err) {
+                return res.json({ status: false, message: err });
             }
 
-            return res.json({status: true , result: Mydata})
+            return res.json({ status: true, result: Mydata })
         })
     });
 };

@@ -47,7 +47,7 @@ export default function AddProducts() {
 
     return (
         <>
-            <div className="container-fluid d-flex flex-column gap-2 rounded-3 text-light" style={{background: '#2a2a34'}}>
+            <div className="container-fluid d-flex flex-column gap-2 rounded-3 text-light" style={{ background: '#2a2a34' }}>
                 <div className="addProducts-section py-3">
                     <div className="btn border text-light" style={{ backgroundColor: '#8B86E2' }}><Link to="/createProduct">Add products</Link></div>
                 </div>
@@ -62,6 +62,7 @@ export default function AddProducts() {
                             <th scope="col">Is Trending</th>
                             <th scope="col">Description</th>
                             <th scope="col">quantity</th>
+                            <th scope="col">Img</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -77,8 +78,13 @@ export default function AddProducts() {
                                     <td>{el.isTrending ? <span className="badge bg-success">true</span> : <span className="badge bg-danger">false</span>}</td>
                                     <td>{el.desc}</td>
                                     <td>{el.quantity}</td>
+                                    <td>
+                                        <div className="col">
+                                            <img src={el.imgs.coverImg} className="w-100" />
+                                        </div>
+                                    </td>
                                     <td className="d-flex gap-2">
-                                        <div className="btn text-light" style={{background: '#E58554'}} onClick={() => EditFile(el.productId)}>Edit</div>
+                                        <div className="btn text-light" style={{ background: '#E58554' }} onClick={() => EditFile(el.productId)}>Edit</div>
                                         <div className="btn text-light bg-danger" onClick={() => DeleteItem(el.productId)}>Delete</div>
                                     </td>
                                 </tr>
