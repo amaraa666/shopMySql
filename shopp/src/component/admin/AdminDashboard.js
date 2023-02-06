@@ -28,7 +28,7 @@ export default function Dashboard(){
                     </div>
                     <div className="body-showUsers d-flex jsutify-content-between p-2">
                         <div className="col-3">
-                            <span className="rounded-5 d-flex align-items-center justify-content-center px-2 py-3 w-75 h-75" style={{backgroundColor: '#A477F8' ,boxShadow: '0px 1px 4px #fff'}}>
+                            <span className="rounded-5 d-flex align-items-center justify-content-center px-2 py-3 w-75 h-75" style={{backgroundColor: '#E58554' ,boxShadow: '0px 1px 4px #fff'}}>
                                 <i className="bi bi-bag-heart-fill fs-3"></i>
                             </span>
                         </div>
@@ -44,7 +44,7 @@ export default function Dashboard(){
                     </div>
                     <div className="body-showUsers d-flex jsutify-content-between p-2">
                         <div className="col-3">
-                            <span className="rounded-5 d-flex align-items-center justify-content-center px-2 py-3 w-75 h-75" style={{backgroundColor: '#A477F8' ,boxShadow: '0px 1px 4px #fff'}}>
+                            <span className="rounded-5 d-flex align-items-center justify-content-center px-2 py-3 w-75 h-75" style={{backgroundColor: '#F0BC43' ,boxShadow: '0px 1px 4px #fff'}}>
                                 <i className="bi bi-person-badge-fill fs-3"></i>
                             </span>
                         </div>

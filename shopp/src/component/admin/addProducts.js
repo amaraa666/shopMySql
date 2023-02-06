@@ -78,7 +78,7 @@ export default function AddProducts() {
                                     <td>{el.desc}</td>
                                     <td>{el.quantity}</td>
                                     <td className="d-flex gap-2">
-                                        <div className="btn text-light bg-warning" onClick={() => EditFile(el.productId)}>Edit</div>
+                                        <div className="btn text-light" style={{background: '#E58554'}} onClick={() => EditFile(el.productId)}>Edit</div>
                                         <div className="btn text-light bg-danger" onClick={() => DeleteItem(el.productId)}>Delete</div>
                                     </td>
                                 </tr>
