@@ -58,8 +58,9 @@ exports.uptade = (req, res) => {
 
         myData.map((el) => {
             if (el.id == id) {
-                el.id = body.id
+                el.id = uuid.v4()
                 el.menuName = body.menuName
+                el.iconName = body.iconName
                 el.link = body.link
             };
 
@@ -89,6 +90,7 @@ exports.create = (req, res) => {
         const myObj = {
             id: uuid.v4(),
             menuName: body.menuName,
+            iconName: body.iconName,
             link: body.link,
         }
 

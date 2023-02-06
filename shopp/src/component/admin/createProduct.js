@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 
 export default function CreateProduct() {
 
-    const {id} = useParams();
+    const { id } = useParams();
     console.log(id)
 
     const init = {
@@ -26,44 +26,44 @@ export default function CreateProduct() {
     const [myVal, setMyVal] = useState({});
     console.log(myVal);
 
-    const [isEdited , setIsEdited] = useState(false);
+    const [isEdited, setIsEdited] = useState(false);
 
-    function getData(){
+    function getData() {
         fetch(`http://localhost:6060/api/products/${id}`)
-        .then((res)=>res.json())
-        .then((data)=>{
-            console.log(data);
-            setMyVal(data.result[0]);
-            setIsEdited(true)
-        })
-        .catch((err)=>console.log(err));
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                setMyVal(data.result[0]);
+                setIsEdited(true)
+            })
+            .catch((err) => console.log(err));
     }
 
-    useEffect(()=>{
-        if(id){
+    useEffect(() => {
+        if (id) {
             getData();
-        }else{
+        } else {
             setMyVal(init);
             setIsEdited(false);
         }
-    },[])
+    }, [])
     function AddProducts() {
-        if(isEdited){
+        if (isEdited) {
             console.log(id)
-            fetch(`http://localhost:6060/api/products/${id}`,{
+            fetch(`http://localhost:6060/api/products/${id}`, {
                 method: 'PUT',
-                headers: {'Content-type': 'application/json'},
+                headers: { 'Content-type': 'application/json' },
                 body: JSON.stringify(myVal)
             })
-            .then((res)=>res.json())
-            .then((data)=>{
-                console.log(data);
-                setIsEdited(true)
-                setMyVal(init)
-                window.alert("Amjilttai");
-            })
-            .catch((err)=>console.log(err))
-        }else{
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    setIsEdited(true)
+                    setMyVal(init)
+                    window.alert("Amjilttai");
+                })
+                .catch((err) => console.log(err))
+        } else {
             fetch(`http://localhost:6060/api/products`, {
                 method: "POST",
                 headers: {
@@ -81,7 +81,7 @@ export default function CreateProduct() {
     }
     return (
         <>
-            <div className="container-fluid" style={{background: '#2a2a34'}}>
+            <div className="container-fluid" style={{ background: '#2a2a34' }}>
                 <div className="Header fs-4">Create Product</div>
                 <div className="row">
                     <form className="d-flex flex-column col-7 gap-2">
