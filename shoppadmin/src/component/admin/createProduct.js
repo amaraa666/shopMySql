@@ -19,14 +19,60 @@ export default function CreateProduct() {
         quantity: '',
         imgs: {
             coverImg: '',
-            thumbnail: ''
+            thumbnail: []
         }
     }
 
     const [myVal, setMyVal] = useState({});
     console.log(myVal);
 
+    const [loading, setLoading] = useState(false)
+
     const [isEdited, setIsEdited] = useState(false);
+
+    async function sendFile(messageName, files) {
+        console.log(files)
+
+        const url = "https://api.cloudinary.com/v1_1/djiihhlsc/upload ";
+        const newArr = []
+        for (let i = 0; i < files[0].length; i++) {
+            newArr.push(files[0][i]);
+        }
+
+        const promise = await Promise.all(
+            newArr.map((file) => {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('api_key', '954112839116766');
+                formData.append('folder', 'shop');
+                formData.append('upload_preset', 'lfumbvij');
+
+                return axios.post(url, formData);
+            })
+        )
+
+        console.log(promise)
+
+        const arr = [];
+
+        promise.map((res) => {
+            arr.push(res.data.secure_url);
+        });
+
+
+        if (messageName === 'coverImg') {
+            const myArr = { ...myVal }
+            myArr.imgs.coverImg = arr[0];
+            setMyVal(myArr);
+        } else {
+            const myArr = { ...myVal }
+            myArr.imgs.thumbnail = arr;
+            setMyVal(myArr);
+        }
+
+        setLoading(false)
+
+    }
 
     function getData() {
         fetch(`http://localhost:6060/api/products/${id}`)
@@ -117,53 +163,29 @@ export default function CreateProduct() {
                         </label>
                         <label for='productImgCover'>
                             <input placeholder="productCoverImg" type="file" multiple className="form-control" id="productImgCover" onChange={(e) => {
-                                const url = "https://api.cloudinary.com/v1_1/djiihhlsc/upload ";
-
-                                const formData = new FormData()
-                                let file = e.target.files[0];
-
-                                formData.append('file', file)
-                                formData.append('api_key', '954112839116766')
-                                formData.append('folder', 'shop')
-                                formData.append('upload_preset', 'lfumbvij')
-
-                                axios
-                                    .post(url, formData)
-                                    .then((res) => {
-                                        console.log(res);
-                                        const myArr = { ...myVal }
-                                        myArr.imgs.coverImg = res.data.secure_url
-                                        setMyVal(myArr);
-                                    })
-                                    .catch((err) => console.log(err))
+                                const arr = []
+                                arr.push(e.target.files)
+                                sendFile("coverImg", arr)
                             }} />
-                            {isEdited ? <img src={myVal.imgs.coverImg} className="w-100" /> : ''}
+                            {isEdited ?
+                                <div className="col-3 p-2">
+                                    <img src={myVal.imgs.coverImg} className="w-100" alt="img" />
+                                </div>
+                                : ''}
                         </label>
                         <label for='productimgThumb'>
                             <input placeholder="productThumbnailImg" type="file" multiple className="form-control" id="productimgThumb" onChange={(e) => {
-                                const url = "https://api.cloudinary.com/v1_1/djiihhlsc/upload ";
-
-                                const formData = new FormData()
-                                let file = e.target.files[0];
-
-                                formData.append('file', file)
-                                formData.append('api_key', '954112839116766')
-                                formData.append('folder', 'shop')
-                                formData.append('upload_preset', 'lfumbvij')
-
-                                axios
-                                    .post(url, formData)
-                                    .then((res) => {
-
-                                        console.log(res);
-
-                                        const myArr = { ...myVal }
-                                        myArr.imgs.thumbnail = res.data.secure_url
-                                        setMyVal(myArr);
-                                    })
-                                    .catch((err) => console.log(err))
+                                const arr = []
+                                arr.push(e.target.files)
+                                sendFile("thumbnail", arr)
                             }} />
-                            {isEdited ? <img src={myVal.imgs.thumbnail} className="w-100" /> : ''}
+                            {isEdited ?
+                                <div className="col-3 p-2">
+                                    {myVal.imgs.thumbnail.map((el) => {
+                                        return <img src={el} className="w-100" alt="thumbnail" />
+                                    })}
+                                </div>
+                                : ''}
                         </label>
                         <div className="save-section">
                             <div className="btn border text-light" style={{ backgroundColor: '#1C4F2A' }} onClick={AddProducts}>Add product</div>

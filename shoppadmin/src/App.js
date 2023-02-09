@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import Header from './component/Header';
 import AdminLogin from './component/AdminLogin';
 import Admin from './component/admin/Admin';
 import AddUsers from './component/admin/addUsers';
@@ -14,11 +13,7 @@ import CreateCategory from './component/admin/CreateCate';
 function App() {
   return (
     <>
-      <div className='container-fluid px-3 h-100 w-100 ' style={{ background: '#1C1C26' }}>
-        <Routes>
-          <Route exact path='/' element={<Header />} />
-        </Routes>
-
+      <div className='container-fluid px-3 h-100 w-100 '>
         <Routes>
           <Route exact path='/adminlogin' element={<AdminLogin />} />
           <Route exact path='/admin' element={<Admin />} />

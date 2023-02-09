@@ -79,8 +79,8 @@ export default function AddProducts() {
                                     <td>{el.desc}</td>
                                     <td>{el.quantity}</td>
                                     <td>
-                                        <div className="col">
-                                            <img src={el.imgs.coverImg} className="w-100" />
+                                        <div className="col-3">
+                                            <img src={el.imgs.coverImg} className="w-100" alt="img" />
                                         </div>
                                     </td>
                                     <td className="d-flex gap-2">
