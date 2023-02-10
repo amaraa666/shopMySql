@@ -2,7 +2,7 @@
 export default function Header() {
     return (
         <>
-            <div className="container-fluid p-2">
+            <div className="container-fluid px-2 py-3">
                 <div className='d-flex justify-content-between'>
                     <div className='col-3'>
                         <div className='d-flex gap-5 align-items-center'>
@@ -18,7 +18,7 @@ export default function Header() {
                             <i className='bi bi-search'></i>
                             <input className='rounded-3 col border-0' style={{ outline: 'none' }} placeholder='Search something you want' />
                         </div>
-                        <div className='btn border-0' style={{ backgroundColor: '#C9F953' }}>Search</div>
+                        <span className='d-flex align-items-center border-0' style={{ backgroundColor: '#C9F953' }}>Search</span>
                     </div>
                     <div className='col-1 d-flex gap-4 align-items-center fs-5 text-dark'>
                         <i className='bi bi-person'></i>

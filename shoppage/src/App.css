@@ -6,3 +6,9 @@
   text-decoration: none;
   color: #3E3E3E;
 }
+
+.heart-icon {
+  z-index: 2;
+  top: 0.4em;
+  right: 0.4em;
+}

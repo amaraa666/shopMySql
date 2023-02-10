@@ -103,7 +103,7 @@ exports.create = (req, res) => {
             price: body.price,
             desc: body.desc,
             sale: body.sale,
-            isTrending: body.price,
+            isTrending: body.isTrending,
             quantity: body.quantity,
             imgs: {
                 coverImg: body.imgs.coverImg,

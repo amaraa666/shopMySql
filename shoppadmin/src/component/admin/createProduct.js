@@ -14,7 +14,7 @@ export default function CreateProduct() {
         price: '',
         sale: '',
         category: '',
-        isTrendingVal: false,
+        isTrending: false,
         desc: '',
         quantity: '',
         imgs: {
@@ -150,9 +150,9 @@ export default function CreateProduct() {
                         </label>
                         <span className="fs-5">isTrending</span>
                         <label for='' className="d-flex gap-2">
-                            <input type="radio" className="form-check" value={false} name="isTrending" id="yes" onChange={(e) => e.target.checked ? setMyVal({ ...myVal, isTrendingVal: true }) : myVal} />
+                            <input type="radio" className="form-check" value={true} name="isTrending" id="yes" onChange={(e) => e.target.checked ? setMyVal({ ...myVal, isTrending: true }) : e.value} />
                             <span>yes</span>
-                            <input type="radio" className="form-check" value={true} name="isTrending" id="no" onChange={(e) => e.target.checked ? setMyVal({ ...myVal, isTrendingVal: false }) : myVal} />
+                            <input type="radio" className="form-check" value={false} name="isTrending" id="no" onChange={(e) => e.target.checked ? setMyVal({ ...myVal, isTrending: false }) : e.value} />
                             <span>no</span>
                         </label>
                         <label for='productDesc'>
