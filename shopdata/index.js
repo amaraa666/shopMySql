@@ -17,9 +17,9 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/api', usersRouter);
-app.use('/api' , productsRouter);
-app.use('/api' , menusRouter);
-app.use('/api' , categoriesRouter);
+app.use('/api', productsRouter);
+app.use('/api', menusRouter);
+app.use('/api', categoriesRouter);
 
 app.get('/api', (req, res) => {
     res.json({ message: "welcome rest api" });

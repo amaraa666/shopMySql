@@ -13,7 +13,7 @@ import CreateCategory from './component/admin/CreateCate';
 function App() {
   return (
     <>
-      <div className='container-fluid px-3 h-100 w-100 '>
+      <div className='container-fluid h-100 w-100 p-0'>
         <Routes>
           <Route exact path='/adminlogin' element={<AdminLogin />} />
           <Route exact path='/admin' element={<Admin />} />

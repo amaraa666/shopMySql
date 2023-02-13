@@ -16,7 +16,7 @@ export default function Admin() {
     useEffect(() => { getDat() }, [])
     return (
         <>
-            <div className="container-fluid h-100 p-0 text-light">
+            <div className="container-fluid h-100 p-0 m-0 text-light" style={{ backgroundColor: "#1C1C26" }}>
                 <Header />
                 <div className="d-flex h-100">
                     <div className="adminAside d-flex p-3 flex-column align-items-center justify-content-center" style={{ backgroundColor: '#292933', overflow: 'hidden' }}>

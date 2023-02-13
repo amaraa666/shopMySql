@@ -1,6 +1,7 @@
 
 
 const fs = require('fs');
+const uuid = require('uuid');
 
 const file = process.cwd() + '/data/users.json';
 
@@ -60,7 +61,7 @@ exports.create = (req, res) => {
 
         const Obj =
         {
-            userID: body.userID,
+            userID: uuid.v4(),
             details: {
                 firstName: body.details.firstName,
                 lastName: body.details.lastName,
@@ -117,28 +118,41 @@ exports.delete = (req, res) => {
 };
 
 exports.uptade = (req, res) => {
-    const { id } = req.query;
+    const { id } = req.params;
+    console.log(req.params)
+    const body = req.body
 
     fs.readFile(file, 'utf-8', (readErr, data) => {
-        const myData = JSON.parse(data);
-
         if (readErr) {
             return res.json({ status: false, message: readErr });
         }
 
-        const myEditedData = myData.filter((c) => {
-            if (c.userID == id) {
-                return c.signIn.password = "huurhun huuhduud";
-            }
-            return myData;
-        })
+        const myData = JSON.parse(data);
 
-        fs.writeFile(file, JSON.stringify(myEditedData), (err) => {
+
+        console.log(body);
+        myData.map((c) => {
+            if (c.userID == id) {
+                c.details.firstName = body.details.firstName,
+                    c.details.lastName = body.details.lastName,
+                    c.details.email = body.details.email,
+                    c.details.address = body.details.address,
+                    c.details.phoneNumber = body.details.phoneNumber,
+                    c.details.gen = body.details.male,
+                    c.signIn.userName = body.signIn.userName,
+                    c.signIn.password = body.signIn.password,
+                    c.admin = body.admin,
+                    c.order = body.order,
+                    c.favItem = body.favItem
+            }
+        });
+
+        fs.writeFile(file, JSON.stringify(myData), (err) => {
             if (err) {
                 return res.json({ status: false, message: err });
             }
 
-            return res.json({ status: true, result: myEditedData });
+            return res.json({ status: true, result: myData });
         });
     });
 };

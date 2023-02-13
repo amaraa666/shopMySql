@@ -10,7 +10,7 @@ export default function NavBar() {
                         <li><Link to="/"></Link>Menu</li>
                         <li><Link to="/"></Link>Contact us</li>
                         <li><Link to="/"></Link>About us</li>
-                        <li><Link to="/"></Link>Products</li>
+                        <li><Link to="/products"></Link>Products</li>
                     </ul>
                 </div>
                 <div className="col-3">

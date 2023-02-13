@@ -14,7 +14,6 @@ POST http://localhost:6060/api/users
 Content-Type: application/json
 
     {
-        "userID": 2,
         "details": {
             "firstName": "Amraaaa",
             "lastName": "Munkh",
@@ -36,5 +35,22 @@ Content-Type: application/json
 DELETE http://localhost:6060/api/users/2
 
 ###
-PUT http://localhost:6060/api/user?id=2
+PUT http://localhost:6060/api/users/aa51a6b5-5080-4a33-9e30-ab247ffbbcdb
+Content-Type: application/json
 
+{
+        "details": {
+            "firstName": "AmraHuu",
+            "lastName": "MunkhOchir",
+            "email": "ami@gmail.com",
+            "address": "Iveel hothon",
+            "phoneNumber": "70118818"
+        },
+        "signIn": {
+            "userName": "Amaraa",
+            "password": "huurhun amra"
+        },
+        "admin": false,
+        "order": [],
+        "favItem": []
+}

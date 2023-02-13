@@ -5,9 +5,11 @@ import HomePage from './component/HomePage/HomePage';
 
 function App() {
   return (
-    <div className="container-fluid p-0" style={{ backgroundColor: '#F6F6F6' }}>
-      <HomePage />
-    </div>
+    <>
+      <div className="container-fluid p-0" style={{ backgroundColor: '#F6F6F6' }}>
+        <HomePage />
+      </div>
+    </>
   );
 }
 

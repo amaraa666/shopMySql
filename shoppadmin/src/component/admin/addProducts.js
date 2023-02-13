@@ -47,7 +47,7 @@ export default function AddProducts() {
 
     return (
         <>
-            <div className="container-fluid d-flex flex-column gap-2 rounded-3 text-light" style={{ background: '#2a2a34' }}>
+            <div className="container-fluid d-flex flex-column gap-2 rounded-3 text-light" style={{ background: '#2a2a34', width: "fit-content" }}>
                 <div className="addProducts-section py-3">
                     <div className="btn border text-light" style={{ backgroundColor: '#8B86E2' }}><Link to="/createProduct">Add products</Link></div>
                 </div>
