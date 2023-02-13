@@ -180,7 +180,7 @@ export default function CreateProduct() {
                                 sendFile("thumbnail", arr)
                             }} />
                             {isEdited ?
-                                <div className="col-3 p-2">
+                                <div className="col-3 p-2 d-flex gap-2">
                                     {myVal.imgs.thumbnail.map((el) => {
                                         return <img src={el} className="w-100" alt="thumbnail" />
                                     })}

@@ -20,15 +20,15 @@ export default function TrendingProduct() {
         getData();
     }, [])
 
-    const [myHeartIcon, setMyHeartIcon] = useState(false)
 
     const myFav = (id) => {
         myData.map((el) => {
             if (el.productId === id) {
+                console.log(el)
                 el.isFav = !el.isFav
+                // console.log(myData)
             }
         })
-        setMyHeartIcon(!myHeartIcon);
     }
     return (
         <>

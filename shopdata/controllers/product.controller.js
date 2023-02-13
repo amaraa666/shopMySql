@@ -65,6 +65,7 @@ exports.uptade = (req, res) => {
             if (el.productId == id) {
                 el.productName = body.productName
                 el.category = body.category
+                el.isFav = false
                 el.price = body.price
                 el.desc = body.desc
                 el.sale = body.sale
@@ -103,6 +104,7 @@ exports.create = (req, res) => {
             price: body.price,
             desc: body.desc,
             sale: body.sale,
+            isFav: false,
             isTrending: body.isTrending,
             quantity: body.quantity,
             imgs: {
