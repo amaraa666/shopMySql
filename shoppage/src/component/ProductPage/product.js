@@ -1,35 +1,47 @@
-import { useEffect, useState } from 'react'
-import UseFetch from '../../customHook/UseFetch';
+import { useContext, useState } from 'react'
+import { ArrContext } from '../context/Context';
+import MyFilter from './Filter';
+import { DataContext } from '../context/Data.Context';
+import { FilteredData } from '../context/filteredData';
+
+
 
 export default function MyProduct() {
-    const [myData, setMyData] = useState([])
-    function getData() {
-        fetch('http://localhost:6060/api/products')
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                setMyData(data.result);
-            });
-    }
-    useEffect(() => {
-        getData()
-    }, [])
+    const { myFavItem, setMyFavItem } = useContext(ArrContext);
+    const { myData } = useContext(DataContext);
+    const { myDataFilter } = useContext(FilteredData);
+
+
+    console.log(myFavItem)
     const myFav = (id) => {
         myData.map((el) => {
             if (el.productId === id) {
-                el.isFav = !el.isFav
-                getData()
+                if (el.isFav === true) {
+                    el.isFav = false
+                    if (myFavItem.includes(el)) {
+                        const myArr = [...myFavItem]
+                        myArr.splice(myFavItem.indexOf(el), 1)
+                        setMyFavItem(myArr)
+                    }
+                } else {
+                    el.isFav = true
+                    if (!myFavItem.includes(el)) {
+                        const myArr = [...myFavItem]
+                        myArr.push(el)
+                        setMyFavItem(myArr)
+                    }
+                }
             }
         })
     }
     // const { response, error } = UseFetch('http://localhost:6060/api/products', {})
     return (
         <>
-            <div className='container-fluid d-flex'>
-                <div className='col-3'>
-
+            <div className='container-fluid p-0 d-flex'>
+                <div className='col-2'>
+                    <MyFilter />
                 </div>
-                <div className="col-9 d-flex flex-wrap">
+                <div className="col-10 d-flex flex-wrap">
                     {myData?.map((pro) => {
                         return (
                             <div className="myProductCard col-3 p-2">

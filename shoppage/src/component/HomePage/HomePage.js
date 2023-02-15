@@ -1,9 +1,6 @@
-import Footer from "../GlobalSections/Footer";
-import Header from "../GlobalSections/Header";
 import TrendingProduct from "./TrendingProduct";
 import AboutShop from "./AboutShop";
-import NavBar from "../GlobalSections/NavBar";
-import { Outlet } from "react-router-dom";
+
 
 
 export default function HomePage() {

@@ -67,6 +67,7 @@ exports.uptade = (req, res) => {
                 el.category = body.category
                 el.isFav = false
                 el.price = body.price
+                el.color = body.color
                 el.desc = body.desc
                 el.sale = body.sale
                 el.isTrending = body.isTrending
@@ -102,6 +103,7 @@ exports.create = (req, res) => {
             productName: body.productName,
             category: body.category,
             price: body.price,
+            color: body.color,
             desc: body.desc,
             sale: body.sale,
             isFav: false,

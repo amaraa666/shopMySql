@@ -2,6 +2,9 @@
 
 const fs = require('fs');
 const uuid = require('uuid');
+const bcrypt = require('bcrypt');
+const saltRounds = 3;
+const myKey = "123456^^!'_'"
 
 const file = process.cwd() + '/data/users.json';
 
@@ -51,13 +54,15 @@ exports.get = (req, res) => {
 exports.create = (req, res) => {
     const body = req.body
 
-    fs.readFile(file, 'utf-8', (readErr, data) => {
+    fs.readFile(file, 'utf-8', async (readErr, data) => {
 
         if (readErr) {
             return res.json({ status: false, message: readErr });
         }
 
         const myData = data ? JSON.parse(data) : []
+
+        const newPassword = await bcrypt.hash(body.password + myKey, saltRounds);
 
         const Obj =
         {
@@ -72,7 +77,7 @@ exports.create = (req, res) => {
             },
             signIn: {
                 userName: body.signIn.userName,
-                password: body.signIn.password
+                password: newPassword,
             },
             admin: body.admin,
             order: body.order,
@@ -154,5 +159,45 @@ exports.uptade = (req, res) => {
 
             return res.json({ status: true, result: myData });
         });
+    });
+};
+
+exports.login = (req, res) => {
+    const { signIn } = req.body;
+
+    if (!signIn.userName || !signIn.password) {
+        return res.json({ status: false, message: 'Medeelel dutuu baina' });
+    }
+
+    fs.readFile(file, 'utf-8', async (readErr, data) => {
+        if (readErr) {
+            return ({ status: false, message: readErr });
+        }
+
+        const myData = JSON.parse(data);
+
+        let user;
+        for (let i = 0; i < myData.length; i++) {
+            if (signIn.userName == myData[i].signIn.userName) {
+                const decrypt = await bcrypt.compare(signIn.password + myKey, myData[i]?.signIn.password);
+                console.log('hi');
+                if (decrypt) {
+                    user = {
+                        userID: myData[i].userID,
+                        email: myData[i].details.email,
+                        lastName: myData[i].details.lastName,
+                        firstName: myData[i].details.firstName
+                    };
+                    break;
+                };
+            };
+        };
+        console.log(user)
+
+        if (user) {
+            return res.json({ status: true, result: user })
+        } else {
+            return res.json({ status: false, message: 'Tanii ner esvel nuuts ug buruu baina' })
+        }
     });
 };

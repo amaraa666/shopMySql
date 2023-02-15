@@ -18,3 +18,13 @@
   text-decoration: none;
   color: inherit;
 }
+
+.myCartValue {
+  font-size: 15px;
+  background-color: #C9F953;
+}
+
+.myFavValue {
+  font-size: 15px;
+  background-color: #C9F953;
+}

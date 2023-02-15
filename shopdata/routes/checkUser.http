@@ -54,3 +54,14 @@ Content-Type: application/json
         "order": [],
         "favItem": []
 }
+
+###
+POST http://localhost:6060/api/users/login
+Content-Type: application/json
+
+{
+    "signIn":{
+      "password":"huurhun amra",
+      "userName":"Amaraa"
+    }
+}

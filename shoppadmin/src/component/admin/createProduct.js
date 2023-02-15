@@ -13,6 +13,7 @@ export default function CreateProduct() {
         productName: '',
         price: '',
         sale: '',
+        color: '',
         category: '',
         isTrending: false,
         desc: '',
@@ -136,6 +137,9 @@ export default function CreateProduct() {
                         </label>
                         <label for='productPrice'>
                             <input placeholder="Price" type="number" className="form-control" id="productPrice" value={myVal.price} onChange={(e) => setMyVal({ ...myVal, price: e.target.value })} />
+                        </label>
+                        <label for='productPrice'>
+                            <input placeholder="Color" type="text" className="form-control" id="productColor" value={myVal.color} onChange={(e) => setMyVal({ ...myVal, color: e.target.value })} />
                         </label>
                         <label for='productSale'>
                             <input placeholder="sale" type="number" className="form-control" id="productSale" value={myVal.sale} onChange={(e) => setMyVal({ ...myVal, sale: e.target.value })} />

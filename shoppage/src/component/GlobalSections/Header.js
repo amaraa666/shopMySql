@@ -1,9 +1,17 @@
-
+import { useContext, useState } from "react";
+import { ArrContext } from "../context/Context";
+import LoginUser from "../Login&sigUP/loginUser";
 export default function Header() {
+    const { myFavItem } = useContext(ArrContext);
+    const [callModal, setCallModal] = useState(false);
+    function UserLog() {
+        setCallModal(!callModal)
+    }
     return (
         <>
+            <LoginUser callModal={callModal} UserLog={UserLog} />
             <div className="container-fluid px-2 py-3">
-                <div className='d-flex justify-content-between'>
+                <div className='d-flex justify-content-between col-11'>
                     <div className='col-3'>
                         <div className='d-flex gap-5 align-items-center'>
                             <h3>Logo</h3>
@@ -20,10 +28,14 @@ export default function Header() {
                         </div>
                         <span className='d-flex align-items-center border-0' style={{ backgroundColor: '#C9F953' }}>Search</span>
                     </div>
-                    <div className='col-1 d-flex gap-4 align-items-center fs-5 text-dark'>
-                        <i className='bi bi-person'></i>
-                        <i className='bi bi-heart'></i>
-                        <i className='bi bi-cart'></i>
+                    <div className='col-xl-1 col-2 d-flex gap-md-5 gap-4 align-items-center fs-5 text-dark'>
+                        <i className='bi bi-person fs-4' onClick={UserLog}></i>
+                        <i className='bi bi-heart fs-4 position-relative'>
+                            <span className="myFavValue position-absolute px-2 text-center rounded-5 text-dark">{myFavItem.length}</span>
+                        </i>
+                        <i className='bi bi-cart position-relative fs-4'>
+                            <span className="myCartValue position-absolute px-2 text-center top-0 rounded-5 text-dark">0</span>
+                        </i>
                     </div>
                 </div>
             </div>

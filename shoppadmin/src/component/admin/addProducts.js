@@ -58,6 +58,7 @@ export default function AddProducts() {
                             <th scope="col">Products Name</th>
                             <th scope="col">Price</th>
                             <th scope="col">Sale</th>
+                            <th scope="col">Color</th>
                             <th scope="col">Category</th>
                             <th scope="col">Is Trending</th>
                             <th scope="col">Description</th>
@@ -74,6 +75,7 @@ export default function AddProducts() {
                                     <td>{el.productName}</td>
                                     <td>{el.price}</td>
                                     <td>{el.sale}</td>
+                                    <td>{el.color}</td>
                                     <td>{el.category}</td>
                                     <td>{el.isTrending ? <span className="badge bg-success">true</span> : <span className="badge bg-danger">false</span>}</td>
                                     <td>{el.desc}</td>

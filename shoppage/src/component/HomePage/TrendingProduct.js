@@ -1,32 +1,34 @@
-
-import { useState, useEffect } from 'react';
+import { DataContext } from '../context/Data.Context';
+import { useContext } from 'react';
+import { ArrContext } from '../context/Context';
 
 
 
 
 
 export default function TrendingProduct() {
-    const [myData, setmyData] = useState([])
-
-    const getData = () => {
-        fetch('http://localhost:6060/api/products')
-            .then(res => res.json())
-            .then((data) => {
-                console.log(data.result)
-                setmyData(data.result)
-            })
-    }
-    useEffect(() => {
-        getData();
-    }, [])
+    const { myFavItem, setMyFavItem } = useContext(ArrContext);
+    const { myData } = useContext(DataContext);
 
 
     const myFav = (id) => {
         myData.map((el) => {
             if (el.productId === id) {
-                console.log(el)
-                el.isFav = !el.isFav
-                // console.log(myData)
+                if (el.isFav === true) {
+                    el.isFav = false
+                    if (myFavItem.includes(el)) {
+                        const myArr = [...myFavItem];
+                        myArr.splice(myFavItem.indexOf(el), 1);
+                        setMyFavItem(myArr);
+                    }
+                } else {
+                    el.isFav = true
+                    if (!myFavItem.includes(el)) {
+                        const myArr = [...myFavItem];
+                        myArr.push(el);
+                        setMyFavItem(myArr);
+                    }
+                }
             }
         })
     }
