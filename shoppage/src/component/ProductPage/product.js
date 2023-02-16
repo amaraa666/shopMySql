@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { ArrContext } from '../context/Context';
 import MyFilter from './Filter';
 import { DataContext } from '../context/Data.Context';
@@ -10,6 +10,7 @@ export default function MyProduct() {
     const { myFavItem, setMyFavItem } = useContext(ArrContext);
     const { myData } = useContext(DataContext);
     const { myDataFilter } = useContext(FilteredData);
+
 
 
     console.log(myFavItem)
@@ -42,7 +43,7 @@ export default function MyProduct() {
                     <MyFilter />
                 </div>
                 <div className="col-10 d-flex flex-wrap">
-                    {myData?.map((pro) => {
+                    {myDataFilter?.map((pro) => {
                         return (
                             <div className="myProductCard col-3 p-2">
                                 <div className='d-flex gap-2 flex-column border rounded-4 position-relative' style={{ boxShadow: '0 4px 8px  rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}>

@@ -1,5 +1,5 @@
 import { DataContext } from '../context/Data.Context';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { ArrContext } from '../context/Context';
 
 
@@ -32,9 +32,15 @@ export default function TrendingProduct() {
             }
         })
     }
+
+    const [mySlider, setMySlider] = useState(0)
+    const [myIndex, setmyIndex] = useState(myData)
     return (
         <>
             <div className='d-flex flex-wrap py-3'>
+                {/* <div className='slide w-100 overflow-hidden'>
+                    <img src={myData[mySlider].imgs.coverImg} alt="a" />
+                </div> */}
                 {myData?.map((el) => {
                     if (el.isTrending === true) {
                         return (

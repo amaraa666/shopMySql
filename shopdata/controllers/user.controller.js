@@ -165,22 +165,23 @@ exports.uptade = (req, res) => {
 exports.login = (req, res) => {
     const { signIn } = req.body;
 
-    if (!signIn.userName || !signIn.password) {
+    if (!signIn.userName || !signIn.password)
         return res.json({ status: false, message: 'Medeelel dutuu baina' });
-    }
+
 
     fs.readFile(file, 'utf-8', async (readErr, data) => {
         if (readErr) {
             return ({ status: false, message: readErr });
         }
 
-        const myData = JSON.parse(data);
+        const myData = data ? JSON.parse(data) : [];
 
         let user;
         for (let i = 0; i < myData.length; i++) {
             if (signIn.userName == myData[i].signIn.userName) {
-                const decrypt = await bcrypt.compare(signIn.password + myKey, myData[i]?.signIn.password);
-                console.log('hi');
+                const decrypt = await bcrypt.compare(signIn.password + myKey, myData[i].signIn.password);
+                console.log("suu", await bcrypt.compare(signIn.password + myKey, myData[i]?.signIn.password))
+                console.log(decrypt);
                 if (decrypt) {
                     user = {
                         userID: myData[i].userID,
@@ -192,8 +193,7 @@ exports.login = (req, res) => {
                 };
             };
         };
-        console.log(user)
-
+        console.log(user);
         if (user) {
             return res.json({ status: true, result: user })
         } else {

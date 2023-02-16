@@ -19,6 +19,7 @@ export default function PageLayOut() {
             .then((data) => {
                 console.log(data);
                 setMyData(data.result);
+                setMyDataFilter(data.result)
             });
     }
     useEffect(() => {

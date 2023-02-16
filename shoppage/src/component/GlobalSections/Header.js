@@ -1,11 +1,33 @@
 import { useContext, useState } from "react";
 import { ArrContext } from "../context/Context";
 import LoginUser from "../Login&sigUP/loginUser";
+import { FilteredData } from "../context/filteredData";
+import { DataContext } from "../context/Data.Context";
 export default function Header() {
+
     const { myFavItem } = useContext(ArrContext);
     const [callModal, setCallModal] = useState(false);
+    const { myDataFilter, setMyDataFilter } = useContext(FilteredData);
+    const { myData } = useContext(DataContext)
     function UserLog() {
-        setCallModal(!callModal)
+        setCallModal(!callModal);
+    }
+    console.log(myDataFilter);
+
+    const Arr = []
+
+    function mySearch(e) {
+        if (e.target.value === '') {
+            setMyDataFilter(myData)
+        } else {
+            myData.map((el) => {
+                if (el.productName.toLowerCase().includes(e.target.value.toLowerCase()) || el.category.toLowerCase().includes(e.target.value.toLowerCase())) {
+                    console.log(el)
+                    Arr.push(el)
+                }
+            })
+            setMyDataFilter(Arr)
+        }
     }
     return (
         <>
@@ -24,7 +46,7 @@ export default function Header() {
                     <div className='col-4 d-flex border rounded-5 overflow-hidden' style={{ backgroundColor: '#C9F953' }}>
                         <div className='search-section d-flex rounded-5 align-items-center px-3 overflow-hidden bg-white col-10 gap-2' style={{ border: '1px solid #C9F953' }}>
                             <i className='bi bi-search'></i>
-                            <input className='rounded-3 col border-0' style={{ outline: 'none' }} placeholder='Search something you want' />
+                            <input className='rounded-3 col border-0' onChange={mySearch} style={{ outline: 'none' }} placeholder='Search something you want' />
                         </div>
                         <span className='d-flex align-items-center border-0' style={{ backgroundColor: '#C9F953' }}>Search</span>
                     </div>

@@ -1,8 +1,17 @@
+import { useState } from "react";
 
 
 
 export default function LoginUser({ callModal, UserLog }) {
     const ds = callModal ? 'flex' : 'none';
+    const [signUp, setSignUp] = useState(false)
+    function mySign() {
+        if (signUp) {
+            setSignUp(!signUp)
+        } else {
+            setSignUp(!signUp)
+        }
+    }
     return (
         <>
             <div className="container-fluid position-absolute modal justify-content-center align-items-center" style={{ display: ds, backgroundColor: 'rgba(255,255,255,0.7)' }} onClick={UserLog}>
@@ -19,7 +28,7 @@ export default function LoginUser({ callModal, UserLog }) {
                         </label>
                         <div className="d-flex gap-3 justify-content-center pt-3">
                             <div className="btn" style={{ backgroundColor: '#C9F953' }}>Login</div>
-                            <div className="btn" style={{ backgroundColor: '#B3B3B1' }}>Sign Up</div>
+                            <div className="btn" style={{ backgroundColor: '#B3B3B1' }} onClick={mySign}>Sign Up</div>
                         </div>
                     </form>
                 </div>

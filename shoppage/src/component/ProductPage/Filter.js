@@ -18,26 +18,55 @@ export default function MyFilter() {
 
             })
     }
+    const [isColorPicked, setIsColorPicked] = useState(false)
     function myColor(colorVal) {
-        console.log(colorVal)
-        const arr = myData.filter((e) => {
-            if (e.color === colorVal) {
-                return e
-            };
-        });
-        setMyData(arr);
+        if (isColorPicked === false) {
+            setIsColorPicked(!isColorPicked)
+            console.log(colorVal)
+            const arr = myData.filter((e) => {
+                if (e.color === colorVal) {
+                    return e
+                } else {
+                    setMyDataFilter([])
+                };
+            });
+            setMyDataFilter(arr);
+
+        } else {
+            setIsColorPicked(!isColorPicked)
+            setMyDataFilter(myData)
+        }
+
     }
     useEffect(() => { getData() }, [])
+
+    function myCateFilter(e, name) {
+        console.log(name)
+        if (e.target.checked) {
+            const arrCate = []
+            myData.map((elem) => {
+                if (elem.category.toLowerCase() === name.toLowerCase()) {
+                    console.log(elem)
+                    console.log(name)
+                    arrCate.push(elem)
+                }
+            })
+            setMyDataFilter(arrCate)
+        } else {
+            setMyDataFilter(myData)
+        }
+
+    }
     return (
         <>
             <div className="container-fluid d-flex flex-column p-2 " >
                 <div className="category">
                     <h5 className="text-center">Category</h5>
-                    {myCateData.map((e) => {
+                    {myCateData.map((el) => {
                         return (
                             <label className="d-flex">
-                                <input type='checkBox' />
-                                <span className="p-1 text-center" style={{ color: '#B3B3B1' }}>{e.cateName}</span>
+                                <input type='checkBox' onChange={(e) => myCateFilter(e, el.cateName)} />
+                                <span className="p-1 text-center" style={{ color: '#B3B3B1' }}>{el.cateName}</span>
                             </label>
                         )
                     })}

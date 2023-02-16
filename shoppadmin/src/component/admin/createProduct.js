@@ -87,6 +87,7 @@ export default function CreateProduct() {
     }
 
     useEffect(() => {
+        getCate()
         if (id) {
             getData();
         } else {
@@ -126,6 +127,16 @@ export default function CreateProduct() {
                 })
         }
     }
+    const [myCate, setMyCate] = useState([])
+
+    function getCate() {
+        fetch('http://localhost:6060/api/categories')
+            .then(res => res.json())
+            .then((data) => {
+                console.log(data)
+                setMyCate(data.result)
+            })
+    }
     return (
         <>
             <div className="container-fluid" style={{ background: '#2a2a34' }}>
@@ -147,9 +158,12 @@ export default function CreateProduct() {
                         <label for='productSale'>
                             <select value={myVal.category} onChange={(e) => { setMyVal({ ...myVal, category: e.target.value }) }}>
                                 <option value='0'>Choose...</option>
-                                <option value='phone'>Phone</option>
-                                <option value='clothes'>Clothes</option>
-                                <option value='bags'>Bags</option>
+                                {myCate.map((el, index) => {
+                                    return (
+                                        <option value={index + 1}>{el.cateName}</option>
+                                    )
+                                })}
+
                             </select>
                         </label>
                         <span className="fs-5">isTrending</span>
