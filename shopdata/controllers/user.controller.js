@@ -6,160 +6,93 @@ const bcrypt = require('bcrypt');
 const saltRounds = 3;
 const myKey = "123456^^!'_'"
 
+
+const userService = require('../model/user-service.js');
 const file = process.cwd() + '/data/users.json';
 
-exports.getAll = (req, res) => {
+exports.getAll = async (req, res) => {
+    const { limit } = req.query;
 
-    fs.readFile(file, 'utf-8', (readErr, data) => {
-        const myData = JSON.parse(data)
-
-        if (readErr) {
-            return res.json({ status: false, message: readErr });
+    try {
+        const result = await userService.getUsers(limit);
+        console.log(result)
+        if (result.length > 0) {
+            res.json({ status: true, result });
         }
+    } catch (err) {
+        res.json({ status: false, message: err });
+    }
+    // fs.readFile(file, 'utf-8', (readErr, data) => {
+    //     const myData = JSON.parse(data)
 
-        fs.writeFile(file, JSON.stringify(myData), (err) => {
-            if (err) {
-                return res.json({ status: false, message: err });
-            }
+    //     if (readErr) {
+    //         return res.json({ status: false, message: readErr });
+    //     }
 
-            return res.json({ status: true, result: myData });
-        })
-    })
+    //     fs.writeFile(file, JSON.stringify(myData), (err) => {
+    //         if (err) {
+    //             return res.json({ status: false, message: err });
+    //         }
+
+    //         return res.json({ status: true, result: myData });
+    //     })
+    // })
 };
 
-exports.get = (req, res) => {
-
+exports.get = async (req, res) => {
     const { id } = req.params;
-    console.log(id)
+    if (!id) return res.json({ status: false, message: 'user nor found!' });
 
-    fs.readFile(file, 'utf-8', (readErr, data) => {
+    try {
+        const result = await userService.getUser(id);
+        console.log(result)
+        if (result) {
+            res.json({ status: true, result });
+        }; // adilhn nertei baival dahij bicih hereggui;
 
-        const myData = JSON.parse(data)
-
-        if (readErr) {
-            return res.json({ status: false, message: readErr });
-        }
-
-        const filteredDta = myData.filter((dt) => {
-            return dt.userID == id
-        })
-
-        console.log(filteredDta)
-
-        return res.json({ status: true, result: filteredDta });
-
-    })
+    } catch (err) {
+        res.json({ status: false, message: err });
+    };
 };
 
-exports.create = (req, res) => {
-    const body = req.body
+exports.create = async (req, res) => {
+    const body = req.body;
+    console.log(body);
 
-    fs.readFile(file, 'utf-8', async (readErr, data) => {
-
-        if (readErr) {
-            return res.json({ status: false, message: readErr });
-        }
-
-        const myData = data ? JSON.parse(data) : []
-
-        const newPassword = await bcrypt.hash(body.password + myKey, saltRounds);
-
-        const Obj =
-        {
-            userID: uuid.v4(),
-            details: {
-                firstName: body.details.firstName,
-                lastName: body.details.lastName,
-                email: body.details.email,
-                address: body.details.address,
-                phoneNumber: body.details.phoneNumber,
-                gen: body.details.male,
-            },
-            signIn: {
-                userName: body.signIn.userName,
-                password: newPassword,
-            },
-            admin: body.admin,
-            order: body.order,
-            favItem: body.favItem
-        }
-
-        myData.push(Obj);
-
-        fs.writeFile(file, JSON.stringify(myData), (err) => {
-
-            if (err) {
-                return res.json({ status: false, message: err });
-            }
-
-            return res.json({ status: true, result: myData });
-
-        });
-    });
+    try {
+        const result = await userService.createUser(body);
+        res.json({ status: true, result });
+    } catch (err) {
+        res.json({ status: false, message: err });
+    }
 };
 
-exports.delete = (req, res) => {
+exports.delete = async (req, res) => {
     const { id } = req.params;
+    if (!id) return res.json({ status: false, message: 'user notfound!s' });
 
-    fs.readFile(file, 'utf-8', (readErr, data) => {
-        const myData = JSON.parse(data)
-
-        if (readErr) {
-            return res.json({ status: false, message: readErr })
-        }
-
-        const myDeletedData = myData.filter((el) => {
-            return el.userID != id
-        })
-
-        fs.writeFile(file, JSON.stringify(myDeletedData), (err) => {
-            if (err) {
-                return res.json({ status: false, message: err });
-            }
-
-            return res.json({ status: true, result: myDeletedData })
-        })
-    })
+    try {
+        const result = await userService.deleteUser(id);
+        if (result[0].affectedRows > 0) {
+            res.json({ status: true, message: 'amjilttai ustgallaa' });
+        };
+    } catch (err) {
+        res.json({ status: false, message: err });
+    }
 };
 
-exports.uptade = (req, res) => {
+exports.update = async (req, res) => {
     const { id } = req.params;
-    console.log(req.params)
-    const body = req.body
-
-    fs.readFile(file, 'utf-8', (readErr, data) => {
-        if (readErr) {
-            return res.json({ status: false, message: readErr });
+    console.log(req.body);
+    if (!id) return res.json({ status: false, message: 'user not found' });
+    try {
+        const result = await userService.updateUser(id, req.body);
+        if (result[0].affectedRows > 0) {
+            res.json({ status: true, message: 'amjilttai shinechlegdlee' })
         }
-
-        const myData = JSON.parse(data);
-
-
-        console.log(body);
-        myData.map((c) => {
-            if (c.userID == id) {
-                c.details.firstName = body.details.firstName,
-                    c.details.lastName = body.details.lastName,
-                    c.details.email = body.details.email,
-                    c.details.address = body.details.address,
-                    c.details.phoneNumber = body.details.phoneNumber,
-                    c.details.gen = body.details.male,
-                    c.signIn.userName = body.signIn.userName,
-                    c.signIn.password = body.signIn.password,
-                    c.admin = body.admin,
-                    c.order = body.order,
-                    c.favItem = body.favItem
-            }
-        });
-
-        fs.writeFile(file, JSON.stringify(myData), (err) => {
-            if (err) {
-                return res.json({ status: false, message: err });
-            }
-
-            return res.json({ status: true, result: myData });
-        });
-    });
+    } catch (err) {
+        res.json({ status: false, message: err });
+    }
 };
 
 exports.login = (req, res) => {

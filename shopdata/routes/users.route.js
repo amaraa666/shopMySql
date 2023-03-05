@@ -10,7 +10,7 @@ router.get('/users', users.getAll);
 router.get('/users/:id', users.get);
 router.post('/users', users.create);
 router.post('/users/login', users.login);
-router.put('/users/:id', users.uptade);
+router.put('/users/:id', users.update);
 router.delete('/users/:id', users.delete);
 
 
