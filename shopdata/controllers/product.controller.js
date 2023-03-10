@@ -5,48 +5,29 @@
 const fs = require('fs');
 const uuid = require('uuid');
 
+
+const productService = require('../model/product_service.js');
 const file = process.cwd() + "/data/product.json"
 
-exports.getAll = (req, res) => {
-    fs.readFile(file, 'utf-8', (readErr, data) => {
-        if (readErr) {
-            return res.json({ status: false, message: readErr });
-        }
+exports.getAll = async (req, res) => {
 
-        const myData = JSON.parse(data);
-
-        fs.writeFile(file, JSON.stringify(myData), (err) => {
-            if (err) {
-                return res.json({ status: false, message: err });
-            };
-
-            return res.json({ status: true, result: myData });
-
-        });
-    });
+    const {limit} = req.query;
+    
+    try{
+        const result = await productService.getProducts(limit);
+        if(result.length > 0){
+            res.json({status: true , result});
+        };
+    }catch(err){
+        res.json({status: false , message: err});
+    };
 };
 
-exports.get = (req, res) => {
+exports.get = async (req, res) => {
     const { id } = req.params;
-    const body = req.body
-
-    fs.readFile(file, 'utf-8', (readErr, data) => {
-        if (readErr) {
-            return res.json({ status: false, message: readErr });
-        };
-
-        const myData = JSON.parse(data);
-
-        const myFilteredData = myData.filter((el) => {
-            if (el.productId == id) {
-                return el
-            }
-        });
-        console.log(myFilteredData)
-
-        return res.json({ status: true, result: myFilteredData });
-
-    });
+    try{}catch(err){
+        res.json({status: false , message: err});
+    }
 };
 
 exports.uptade = (req, res) => {

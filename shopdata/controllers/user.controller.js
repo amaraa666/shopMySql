@@ -21,22 +21,7 @@ exports.getAll = async (req, res) => {
         }
     } catch (err) {
         res.json({ status: false, message: err });
-    }
-    // fs.readFile(file, 'utf-8', (readErr, data) => {
-    //     const myData = JSON.parse(data)
-
-    //     if (readErr) {
-    //         return res.json({ status: false, message: readErr });
-    //     }
-
-    //     fs.writeFile(file, JSON.stringify(myData), (err) => {
-    //         if (err) {
-    //             return res.json({ status: false, message: err });
-    //         }
-
-    //         return res.json({ status: true, result: myData });
-    //     })
-    // })
+    };
 };
 
 exports.get = async (req, res) => {
