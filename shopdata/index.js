@@ -11,8 +11,11 @@ const PORT = 6060;
 const usersRouter = require("./routes/users.route.js");
 const productsRouter = require('./routes/product.route.js');
 const menusRouter = require('./routes/menu.route.js');
-const categoriesRouter = require('./routes/category.route.js')
-const adminRouter = require('./routes/adminUsers.js')
+const categoriesRouter = require('./routes/category.route.js');
+const adminRouter = require('./routes/adminUsers.js');
+const orderRouter = require('./routes/orders.route.js');
+const orderDetRouter = require('./routes/order_det.route.js');
+
 
 app.use(express.json());
 app.use(cors());
@@ -22,6 +25,9 @@ app.use('/api', productsRouter);
 app.use('/api', menusRouter);
 app.use('/api', categoriesRouter);
 app.use('/api', adminRouter);
+app.use('/api', orderRouter);
+app.use('/api', orderDetRouter);
+
 
 app.get('/api', (req, res) => {
     res.json({ message: "welcome rest api" });

@@ -31,7 +31,7 @@ exports.createUser = async (user) => {
     try {
         const [rows] = await pool.query(
             `insert  into user values( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-            [user_id, user_name, first_name, last_name, user_pass, gender, address, birth_date, user_img, is_admin]);
+            [null, user_name, first_name, last_name, user_pass, gender, address, birth_date, user_img, is_admin]);
         return rows;
     } catch (err) {
         console.log(err);
@@ -49,13 +49,15 @@ exports.deleteUser = async (id) => {
 };
 
 
-exports.updateUser = async (id, updatedData) => {
+exports.updateUser = async (productId, updatedData) => {
     console.log(updatedData);
-    let [result] = '';
-    for (let i = 0; i < Object.keys(updatedData).length; i++) {
+    console.log(Object.keys(updatedData));
+    console.log(Object.values(updatedData));
+    let [result] = "";
+    for (let i = 0 ; i < Object.keys(updatedData).length ; i++) {
         result = await pool.query(
-            `update user SET ${Object.keys(updatedData)[i]} = '${Object.values(updatedData)[i]}' where user_id = ${id}`
+            `update user SET ${Object.keys(updatedData)[i]} = '${Object.values(updatedData)[i]}' where user_id = ${productId}`
         );
-    };
+    }
     return result;
 };

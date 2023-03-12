@@ -66,14 +66,18 @@ exports.delete = async (req, res) => {
     }
 };
 
-exports.update = async (req, res) => {
+exports.update = async (req , res) => {
     const { id } = req.params;
-    console.log(req.body);
+    console.log(id)
+    const {user_id , user_name , last_name , first_name , user_pass , gender , address ,birth_date , is_admin} = req.body;
+    
     if (!id) return res.json({ status: false, message: 'user not found' });
     try {
-        const result = await userService.updateUser(id, req.body);
-        if (result[0].affectedRows > 0) {
-            res.json({ status: true, message: 'amjilttai shinechlegdlee' })
+        const result = await userService.updateUser(id , req.body);
+        if(result.length>0 && result[0].affectedRows > 0) {
+            return res.json({ status: true, message: 'amjilttai shinechlegdlee' })
+        }else{
+            return res.json({ status: false, message: 'amjiltgui ' })
         }
     } catch (err) {
         res.json({ status: false, message: err });

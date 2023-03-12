@@ -9,9 +9,13 @@ const uuid = require('uuid');
 const productService = require('../model/product_service.js');
 const file = process.cwd() + "/data/product.json"
 
+
+//images baih ystoi yu getAll deer
+
 exports.getAll = async (req, res) => {
 
     const {limit} = req.query;
+    console.log(limit)
     
     try{
         const result = await productService.getProducts(limit);
@@ -25,107 +29,67 @@ exports.getAll = async (req, res) => {
 
 exports.get = async (req, res) => {
     const { id } = req.params;
-    try{}catch(err){
+
+
+    if(!id) return res.json({status: false , message: 'product id not found'});
+
+    try{
+        const result = await productService.getProduct(id);
+        const getImages = await productService.getProductImg(id);
+
+        console.log(result);
+        console.log(getImages);
+    
+        const newOb = { ...result };
+        newOb.images = getImages;
+        console.log(newOb)
+
+        res.json({status: true , result: newOb});
+    }catch(err){
         res.json({status: false , message: err});
     }
 };
 
-exports.uptade = (req, res) => {
+exports.update = async (req, res) => {
     const { id } = req.params;
-    const body = req.body;
-
-    fs.readFile(file, 'utf-8', (readErr, data) => {
-
-        if (readErr) {
-            return res.json({ status: false, message: readErr });
+console.log(id)
+    if(!id) return res.json({status: false  , message: 'product id not found'})
+    try{
+        const result = await productService.updateProduct(id , req.body);
+        if(result.length > 0 && result[0].affectedRows > 0){
+            return res.json({status: true , message:'amjilttai shinchlegdlee' });
+        }else{
+            return res.json({status: false , messgae: 'aldaa'})
         }
-
-        const Mydata = JSON.parse(data);
-
-        Mydata.map((el) => {
-            if (el.productId == id) {
-                el.productName = body.productName
-                el.category = body.category
-                el.isFav = false
-                el.price = body.price
-                el.color = body.color
-                el.desc = body.desc
-                el.sale = body.sale
-                el.isTrending = body.isTrending
-                el.quantity = body.quantity
-                el.imgs.coverImg = body.imgs.coverImg
-                el.imgs.thumbnail = body.imgs.thumbnail
-            };
-        });
-
-        fs.writeFile(file, JSON.stringify(Mydata), (err) => {
-
-            if (err) {
-                return res.json({ status: false, message: err });
-            }
-
-            return res.json({ status: true, result: Mydata })
-        })
-    });
+    }catch(err){
+        res.json({status: false , messsage: err});
+    }
 };
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
     const body = req.body;
 
-    fs.readFile(file, 'utf-8', (readErr, data) => {
-        if (readErr) {
-            return res.json({ status: false, message: readErr });
+    try{
+        const rows = await productService.createProduct(body);
+        const lastOne = await productService.getLastOne()
+        console.log(lastOne , 'last');
+        const createImg = await productService.createProImg(lastOne.product_id , images);
+
+        if(result[0].affectedRows > 0){
+            return res.json({status: true  , message: 'amjilttai nemegdlee'});
         };
-
-        const myData = JSON.parse(data);
-
-        const myObj = {
-            productId: uuid.v4(),
-            productName: body.productName,
-            category: body.category,
-            price: body.price,
-            color: body.color,
-            desc: body.desc,
-            sale: body.sale,
-            isFav: false,
-            isTrending: body.isTrending,
-            quantity: body.quantity,
-            imgs: {
-                coverImg: body.imgs.coverImg,
-                thumbnail: body.imgs.thumbnail
-            }
-        };
-
-        myData.push(myObj);
-
-        fs.writeFile(file, JSON.stringify(myData), (err) => {
-            if (err) {
-                return res.json({ status: false, message: err });
-            };
-
-            return res.json({ status: true, result: myData })
-        });
-    });
+    }catch(err){
+        res.json({status: false , message: err});
+    };
 };
 
-exports.delete = (req, res) => {
+exports.delete = async (req, res) => {
     const { id } = req.params;
+    if(!id) return res.json({status: false , message: 'product id not found!!'});
 
-    fs.readFile(file, 'utf-8', (readErr, data) => {
-        if (readErr) {
-            return res.json({ status: false, message: readErr });
-        };
-
-        const myData = JSON.parse(data);
-
-        const myFilteredData = myData.filter((el) => el.productId !== id)
-
-        fs.writeFile(file, JSON.stringify(myFilteredData), (err) => {
-            if (err) {
-                return Rss.json({ status: false, message: err });
-            };
-
-            return res.json({ status: true, result: myFilteredData });
-        });
-    });
+    try{
+        const result = await productService.deleteProduct(id);
+    }catch(err){
+        res.json({status: false , message: err});
+    };
 };

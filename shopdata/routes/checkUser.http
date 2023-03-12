@@ -83,7 +83,6 @@ GET http://localhost:6060/api/users/1
 Content-Type: application/json
 
 {
-    "user_id": "7",
     "user_name": "bataa",
     "first_name": "boldoo",
     "last_name": "bataa",
@@ -92,18 +91,18 @@ Content-Type: application/json
     "address": "bzd 15-khoroo",
     "birth_date": "1999-12-31T16:00:00.000Z",
     "user_img": "dasddsa",
-    "is_admin": 0
+    "is_admin": false
 }
 
 ### 
-DELETE http://localhost:6060/api/users/7
+DELETE http://localhost:6060/api/users/8
 
 ###
-PUT http://localhost:6060/api/users/2
+PUT http://localhost:6060/api/users/9
 Content-Type: application/json
 
 {
-      "user_name": "tsetsgeeSuhee",
-      "first_name": "tsetsgee",
-      "last_name": "suhee",
+      "user_name": "galbadrah",
+      "first_name": "tsetsegsuren",
+      "last_name": "tumurbaatar"
 }

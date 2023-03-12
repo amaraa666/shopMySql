@@ -32,7 +32,38 @@ Content-Type: application/json
 ###
 DELETE http://localhost:6060/api/products/1
 
+/////////
+
+
 
 ###
-GET http://localhost:6060/api/product?limit=5
+GET http://localhost:6060/api/products?limit=5
+
+###
+GET http://localhost:6060/api/products/1
+
+###
+POST http://localhost:6060/api/products
+Content-Type: application/json
+
+
+{
+      "product_name": "shoes",
+      "price": 100,
+      "stock": 12,
+      "pro_desc": "expensive ",
+      "category_id": "12ac",
+      "img_id": 1
+}
+
+
+###
+PUT http://localhost:6060/api/products/1
+Content-Type: application/json
+
+{
+   "product_name": "shoes",
+    "price": 100
+}
+
 
